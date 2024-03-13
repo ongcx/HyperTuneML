@@ -1,5 +1,5 @@
 # HyperTuneML
-HyperTuneML: Simplify hyperparameter tuning for machine learning models with this Python library. Automate optimization to enhance model performance effortlessly. Streamline your data science workflow with HyperTuneML."
+HyperTuneML: Simplify hyperparameter tuning for machine learning models with this Python library. Automate optimization to enhance model performance effortlessly. Streamline your data science workflow with HyperTuneML.
 # AutoTuneML: Automated Hyperparameter Tuning for Machine Learning Models
 
 AutoTuneML is a Python library designed to automate the process of hyperparameter tuning for machine learning models. It utilizes techniques such as grid search, random search, Bayesian optimization, and genetic algorithms to efficiently search through the hyperparameter space and find the optimal set of hyperparameters for a given model.
