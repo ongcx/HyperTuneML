@@ -1,47 +1,69 @@
 ## Overview:
-HyperTuneML is a Python library designed to automate hyperparameter tuning for machine learning models. This tool streamlines the process of finding optimal hyperparameters, enhancing model performance and efficiency.
+This Python script demonstrates how to perform hyperparameter tuning for a Random Forest Classifier using Grid Search Cross-Validation.
 
-## Installation:
-### Download the Code:
-Download the `hyperparameter_tuning.py` file from this repository.
-### Import HyperTuneML:
-In your Python script, import HyperTuneML using:
-```python
-from hyperparameter_tuning import HyperTuneML
+### Instructions:
+1. Installation:
+- Ensure you have the necessary libraries installed:
 ```
-## Usage:
-### Loading Your Dataset:
-Prepare your dataset for model training.
-### Setting Up Hyperparameters:
-Define the hyperparameters you want to tune in your model.
-### Using HyperTuneML for Tuning:
-Create an instance of HyperTuneML and specify the model, hyperparameters, and optimization technique to use.
-### Running the Tuning Process:
-Initiate the tuning process with HyperTuneML to optimize hyperparameters.
-### Evaluating Results:
-Analyze the performance of different hyperparameter configurations suggested by HyperTuneML.
-### Fine-Tuning and Refinement:
-Iterate on the results obtained to further refine and improve model performance.
-### Saving Your Optimized Model:
-Save your optimized model for future use or deployment.
-
-## Example Code Snippet:
-```python
-from hyperparameter_tuning import HyperTuneML
-
-# Load dataset
-# Define hyperparameters
-# Initialize HyperTuneML
-tuner = HyperTuneML(model=model, hyperparameters=hyperparams, optimization='grid_search')
-
-# Run tuning process
-tuner.tune()
-
-# Evaluate results and fine-tune model
-# Save optimized model
+pip install numpy scikit-learn
 ```
-## Contribution:
-Contributions and feedback are welcome! Feel free to fork this repository, make improvements, and submit pull requests.
+2. Usage:
+- Import the required libraries and define the tune_hyperparameters function.
+- Load your dataset (e.g., Iris dataset) or use your own data.
+- Call the tune_hyperparameters function with your features X and target y arrays.
 
-## License:
-This project is licensed under the MIT License.
+3. Functionality:
+- The function splits the data, defines a parameter grid for tuning, and initializes a Random Forest Classifier.
+- Grid Search CV is used to find the best hyperparameters based on the provided parameter grid.
+- The function prints the best hyperparameters found and evaluates the model's accuracy on the test set.
+
+### Example:
+```
+python
+# Import necessary libraries
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import load_iris
+
+# Define a function for hyperparameter tuning
+def tune_hyperparameters(X, y):
+    # Split the data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # Define the parameter grid to search through
+    param_grid = {
+        'n_estimators': [100, 200, 300],
+        'max_depth': [None, 10, 20],
+        'min_samples_split': [2, 5, 10]
+    }
+    
+    # Initialize the model
+    model = RandomForestClassifier()
+    
+    # Perform grid search to find the best hyperparameters
+    grid_search = GridSearchCV(model, param_grid, cv=5)
+    grid_search.fit(X_train, y_train)
+    
+    # Print the best hyperparameters found
+    print("Best hyperparameters: ", grid_search.best_params_)
+    
+    # Evaluate the model on the test set
+    accuracy = grid_search.score(X_test, y_test)
+    print("Accuracy on test set: ", accuracy)
+
+# Example usage
+if __name__ == "__main__":
+    # Load sample dataset (Iris dataset)
+    iris = load_iris()
+    X = iris.data
+    y = iris.target
+    
+    # Call the hyperparameter tuning function
+    tune_hyperparameters(X, y)
+```
+
+### Note:
+- Customize the parameter grid and dataset according to your specific requirements.
+- Experiment with different datasets and parameters to optimize model performance.
